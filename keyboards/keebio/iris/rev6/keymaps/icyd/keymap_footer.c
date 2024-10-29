@@ -1,6 +1,9 @@
 #include <stdint.h>
 #include "action.h"
+#include "eeconfig.h"
+#include "keycode_config.h"
 #include "matrix.h"
+#include "os_detection.h"
 #include "quantum.h"
 #include "select_word.h"
 #include "achordion.h"
@@ -34,4 +37,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 void matrix_scan_user(void) {
     achordion_task();
     select_word_task();
+}
+
+bool process_detected_host_os_user(os_variant_t os) {
+    if (os == OS_MACOS) {
+        keymap_config.raw            = eeconfig_read_user();
+        keymap_config.swap_lalt_lgui = true;
+        clear_keyboard();
+    }
+
+    return true;
 }
