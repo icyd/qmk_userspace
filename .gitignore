@@ -14,4 +14,4 @@
 compile_commands.json
 .clangd/
 .cache/
-keymap.c
+keymap_config.json
